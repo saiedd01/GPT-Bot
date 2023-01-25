@@ -28,11 +28,29 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             padding: const EdgeInsets.all(10),
             child: ClipRRect
               (
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(30),
               child: Image.asset("assets/images/ChatBot_MainScreen.jpg"),
             ),
           ),
           const SizedBox(height: 10,),
+          Column
+            (
+            children:
+            [
+              const Text("Whatever You will Ask, You'll get an Answer"),
+              const SizedBox
+                (
+                height: 100,
+              ),
+              ElevatedButton
+                (
+                onPressed: ()
+                {
+                },
+                child: const Text("Begin Chatting!"),
+              )
+            ],
+          ),
         ]
       ),
     );
