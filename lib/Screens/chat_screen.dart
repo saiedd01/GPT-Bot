@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:gpt_final/Widget/chat_message.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
   @override
@@ -25,6 +27,24 @@ class _ChatPage extends State<ChatPage> {
     })));
     final response = await request.close();
     return response;
+  }
+
+  final TextEditingController _controller = TextEditingController();
+  final List<ChatMessage> _messages = [];
+
+  void sendMessage(message) async {
+    final response = await sendRequest(message);
+    if (response.statusCode == 200) {
+      final completions =
+      json.decode(await response.transform(utf8.decoder).join())['choices'];
+      for (var completion in completions) {
+        print(completion['text']);
+        _messages.insert(0, ChatMessage(text: completion['text'], sender: "OpenAI"));
+      }
+      setState(() {});
+    } else {
+      print("Error Here!");
+    }
   }
 
   @override
