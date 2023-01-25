@@ -63,6 +63,12 @@ class _ChatPage extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pro🤖Bot"),
+        leading: Image.asset("assets/images/ChatGPT_Icon.png"),
+      ),
+
+    );
   }
 }
