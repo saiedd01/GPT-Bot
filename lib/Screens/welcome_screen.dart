@@ -13,7 +13,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar
+        (
+        title: const Text
+          (
+          "Welcome... 😉!",
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
     );
   }
 }
