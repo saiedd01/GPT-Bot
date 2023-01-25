@@ -11,7 +11,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPage extends State<ChatPage> {
-  static const apiKey = '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';
+  static const apiKey = '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';
   Future<HttpClientResponse> sendRequest(String prompt) async {
     final client = HttpClient();
     final request = await client
