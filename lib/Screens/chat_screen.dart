@@ -69,6 +69,55 @@ class _ChatPage extends State<ChatPage> {
         leading: Image.asset("assets/images/ChatGPT_Icon.png"),
       ),
 
+      body: Column(
+        children: <Widget>[
+          Flexible(
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.all(8.0),
+              itemBuilder: (_, index) {
+                return _messages[index];
+                },
+              itemCount: _messages.length,
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  Widget _buildTextComposer({
+    required TextEditingController textController,
+    required bool isComposing,
+    required Function? Function(String? x) handleSubmitted,
+  }) {
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: [
+            Flexible(
+              child: TextField(
+                controller: textController,
+                onChanged: (text) {
+                  setState(() {
+                    isComposing = text.isNotEmpty;
+                  });
+                },
+                onSubmitted: handleSubmitted,
+                decoration:
+                const InputDecoration.collapsed(hintText: 'Ask me!'),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.send,
+                color: Colors.blue,
+              ),
+              onPressed: isComposing
+                  ? () => handleSubmitted(textController.text)
+                  : null,
+            ),
+          ],
+        ));
   }
 }
