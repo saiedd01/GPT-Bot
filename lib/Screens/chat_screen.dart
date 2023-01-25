@@ -47,6 +47,20 @@ class _ChatPage extends State<ChatPage> {
     }
   }
 
+  void sendUser(String Text) {
+    print(Text + "Controller");
+    ChatMessage message = ChatMessage(
+      text: Text,
+      sender: 'You',
+    );
+
+    setState(() {
+      _messages.insert(0, message);
+    });
+    _controller.clear();
+    sendMessage(Text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold();
