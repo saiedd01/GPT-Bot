@@ -36,10 +36,11 @@ class _ChatPage extends State<ChatPage> {
     final response = await sendRequest(message);
     if (response.statusCode == 200) {
       final completions =
-      json.decode(await response.transform(utf8.decoder).join())['choices'];
+          json.decode(await response.transform(utf8.decoder).join())['choices'];
       for (var completion in completions) {
         print(completion['text']);
-        _messages.insert(0, ChatMessage(text: completion['text'], sender: "OpenAI"));
+        _messages.insert(
+            0, ChatMessage(text: completion['text'], sender: "OpenAI"));
       }
       setState(() {});
     } else {
@@ -68,7 +69,6 @@ class _ChatPage extends State<ChatPage> {
         title: const Text("Pro🤖Bot"),
         leading: Image.asset("assets/images/ChatGPT_Icon.png"),
       ),
-
       body: Column(
         children: <Widget>[
           Flexible(
@@ -77,8 +77,24 @@ class _ChatPage extends State<ChatPage> {
               padding: const EdgeInsets.all(8.0),
               itemBuilder: (_, index) {
                 return _messages[index];
-                },
+              },
               itemCount: _messages.length,
+            ),
+          ),
+          const Divider(height: 1.0, color: Colors.blue, thickness: 3),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+            ),
+            child: _buildTextComposer(
+              textController: _controller,
+              isComposing: true,
+              handleSubmitted: (x) {
+                setState(() {
+                  sendUser(x!);
+                });
+                return null;
+              },
             ),
           ),
         ],
@@ -105,7 +121,7 @@ class _ChatPage extends State<ChatPage> {
                 },
                 onSubmitted: handleSubmitted,
                 decoration:
-                const InputDecoration.collapsed(hintText: 'Ask me!'),
+                    const InputDecoration.collapsed(hintText: 'Ask me!'),
               ),
             ),
             IconButton(
